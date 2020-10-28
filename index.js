@@ -12,6 +12,10 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
+  connection.query("SELECT * FROM employee ORDER BY id", function (err,res) {
+    if (err) throw err;
+    console.table(res)
+  });
   runSearch();
 });
 
@@ -64,6 +68,22 @@ function runSearch() {
     break;
   }
 });
-
-
 }
+
+function employeeSearch() {
+  inquirer
+    .prompt({
+      name: "employee",
+      type: "input",
+      message: "Which employee would you like to search for?"
+    })
+    .then(function(answer) {
+      var query = "SELECT * FROM employee";
+      connection.query(query, { employee: answer.first_name}, function(err, res) {
+        for (var i = 0; i < res.length; i++) {}
+        console.table(res);
+        runSearch();
+      });
+    });
+}
+
