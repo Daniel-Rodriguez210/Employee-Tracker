@@ -12,11 +12,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  connection.query("SELECT * FROM employee ORDER BY id", function (err,res) {
-    if (err) throw err;
-    console.table(res)
-  });
-  runSearch();
+    runSearch();
 });
 
 
@@ -80,6 +76,40 @@ function employeeSearch() {
     .then(function(answer) {
       var query = "SELECT * FROM employee";
       connection.query(query, { employee: answer.first_name}, function(err, res) {
+        for (var i = 0; i < res.length; i++) {}
+        console.table(res);
+        runSearch();
+      });
+    });
+}
+
+function departmentSearch() {
+  inquirer
+    .prompt({
+      name: "department",
+      type: "input",
+      message: "Which department would you like to search for?"
+    })
+    .then(function(answer) {
+      var query = "SELECT * FROM department";
+      connection.query(query, { employee: answer.name}, function(err, res) {
+        for (var i = 0; i < res.length; i++) {}
+        console.table(res);
+        runSearch();
+      });
+    });
+}
+
+function managerSearch() {
+  inquirer
+    .prompt({
+      name: "manager",
+      type: "input",
+      message: "Which manager would you like to search for?"
+    })
+    .then(function(answer) {
+      var query = "SELECT * FROM employee";
+      connection.query(query, { employee: answer.manager_id}, function(err, res) {
         for (var i = 0; i < res.length; i++) {}
         console.table(res);
         runSearch();
