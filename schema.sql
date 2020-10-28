@@ -7,7 +7,7 @@ USE employee_tracker_db;
 
 CREATE TABLE department(
 id INT PRIMARY KEY, 
-name VARCHAR(30)
+name VARCHAR(30) NOT NULL
 );
 
 -- Role Table
